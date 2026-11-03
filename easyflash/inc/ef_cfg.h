@@ -30,19 +30,21 @@
 #define EF_CFG_H_
 
 /* using ENV function, default is NG (Next Generation) mode start from V4.0 */
-#define EF_USING_ENV
+#define EF_USING_ENV 1
 
 #ifdef EF_USING_ENV
-/* Auto update ENV to latest default when current ENV version number is changed. */
-/* #define EF_ENV_AUTO_UPDATE */
+/* Auto update ENV to latest default when current ENV version number is changed.
+ */
+#define EF_ENV_AUTO_UPDATE 1
 /**
  * ENV version number defined by user.
  * Please change it when your firmware add a new ENV to default_env_set.
  */
-#define EF_ENV_VER_NUM            /* @note you must define it for a value, such as 0 */
- 
+// TIPS: 老设备升级后就会自动补上新增的默认项，不会覆盖用户已经改过的值
+#define EF_ENV_VER_NUM 0
+
 /* MCU Endian Configuration, default is Little Endian Order. */
-/* #define EF_BIG_ENDIAN  */         
+/* #define EF_BIG_ENDIAN  */
 
 #endif /* EF_USING_ENV */
 
@@ -53,46 +55,50 @@
 /* #define EF_USING_LOG */
 
 /* The minimum size of flash erasure. May be a flash sector size. */
-#define EF_ERASE_MIN_SIZE         /* @note you must define it for a value */
+#define EF_ERASE_MIN_SIZE (16 * 1024)
 
 /* the flash write granularity, unit: bit
  * only support 1(nor flash)/ 8(stm32f4)/ 32(stm32f1) */
-#define EF_WRITE_GRAN             /* @note you must define it for a value */
-
+#define EF_WRITE_GRAN 8
 
 /* The size of read_env and continue_ff_addr function used*/
-#define EF_READ_BUF_SIZE             32     /* @default 32, Larger numbers can improve first-time speed of alloc_env but require more stack space*/
+#define EF_READ_BUF_SIZE 32
 /*
  *
- * This all Backup Area Flash storage index. All used flash area configure is under here.
+ * This all Backup Area Flash storage index. All used flash area configure is
+ * under here.
  * |----------------------------|   Storage Size
  * | Environment variables area |   ENV area size @see ENV_AREA_SIZE
  * |----------------------------|
  * |      Saved log area        |   Log area size @see LOG_AREA_SIZE
  * |----------------------------|
- * |(IAP)Downloaded application |   IAP already downloaded application, unfixed size
+ * |(IAP)Downloaded application |   IAP already downloaded application, unfixed
+ * size
  * |----------------------------|
  *
  * @note all area sizes must be aligned with EF_ERASE_MIN_SIZE
  *
- * The EasyFlash add the NG (Next Generation) mode start from V4.0. All old mode before V4.0, called LEGACY mode.
+ * The EasyFlash add the NG (Next Generation) mode start from V4.0. All old mode
+ * before V4.0, called LEGACY mode.
  *
- * - NG (Next Generation) mode is default mode from V4.0. It's easy to settings, only defined the ENV_AREA_SIZE.
- * - The LEGACY mode has been DEPRECATED. It is NOT RECOMMENDED to continue using.
- *   Beacuse it will use ram to buffer the ENV and spend more flash erase times.
- *   If you want use it please using the V3.X version.
+ * - NG (Next Generation) mode is default mode from V4.0. It's easy to settings,
+ * only defined the ENV_AREA_SIZE.
+ * - The LEGACY mode has been DEPRECATED. It is NOT RECOMMENDED to continue
+ * using. Beacuse it will use ram to buffer the ENV and spend more flash erase
+ * times. If you want use it please using the V3.X version.
  */
 
 /* backup area start address */
-#define EF_START_ADDR             /* @note you must define it for a value */
+#define EF_START_ADDR 0x08008000
 
-/* ENV area size. It's at least one empty sector for GC. So it's definition must more then or equal 2 flash sector size. */
-#define ENV_AREA_SIZE             /* @note you must define it for a value if you used ENV */
+/* ENV area size. It's at least one empty sector for GC. So it's definition must
+ * more then or equal 2 flash sector size. */
+#define ENV_AREA_SIZE (32 * 1024)
 
 /* saved log area size */
-#define LOG_AREA_SIZE             /* @note you must define it for a value if you used log */
+#define LOG_AREA_SIZE 0
 
 /* print debug information of flash */
-#define PRINT_DEBUG
+#define PRINT_DEBUG 0
 
 #endif /* EF_CFG_H_ */
