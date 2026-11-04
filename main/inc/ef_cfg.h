@@ -49,10 +49,10 @@
 #endif /* EF_USING_ENV */
 
 /* using IAP function */
-/* #define EF_USING_IAP */
+// #define EF_USING_IAP
 
 /* using save log function */
-/* #define EF_USING_LOG */
+// #define EF_USING_LOG
 
 /* The minimum size of flash erasure. May be a flash sector size. */
 #define EF_ERASE_MIN_SIZE (16 * 1024)
@@ -63,30 +63,6 @@
 
 /* The size of read_env and continue_ff_addr function used*/
 #define EF_READ_BUF_SIZE 32
-/*
- *
- * This all Backup Area Flash storage index. All used flash area configure is
- * under here.
- * |----------------------------|   Storage Size
- * | Environment variables area |   ENV area size @see ENV_AREA_SIZE
- * |----------------------------|
- * |      Saved log area        |   Log area size @see LOG_AREA_SIZE
- * |----------------------------|
- * |(IAP)Downloaded application |   IAP already downloaded application, unfixed
- * size
- * |----------------------------|
- *
- * @note all area sizes must be aligned with EF_ERASE_MIN_SIZE
- *
- * The EasyFlash add the NG (Next Generation) mode start from V4.0. All old mode
- * before V4.0, called LEGACY mode.
- *
- * - NG (Next Generation) mode is default mode from V4.0. It's easy to settings,
- * only defined the ENV_AREA_SIZE.
- * - The LEGACY mode has been DEPRECATED. It is NOT RECOMMENDED to continue
- * using. Beacuse it will use ram to buffer the ENV and spend more flash erase
- * times. If you want use it please using the V3.X version.
- */
 
 /* backup area start address */
 #define EF_START_ADDR 0x08008000
@@ -96,9 +72,9 @@
 #define ENV_AREA_SIZE (32 * 1024)
 
 /* saved log area size */
-#define LOG_AREA_SIZE 0
+// #define LOG_AREA_SIZE
 
 /* print debug information of flash */
-#define PRINT_DEBUG 0
+// #define PRINT_DEBUG
 
 #endif /* EF_CFG_H_ */
